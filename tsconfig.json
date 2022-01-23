@@ -1,0 +1,23 @@
+{
+	"include": ["src/**/*"],
+	"exclude": ["node_modules/*", "public/*"],
+	"compilerOptions": {
+		"moduleResolution": "Node",
+		"target": "es2017",
+		"module": "es2020",
+		"importsNotUsedAsValues": "remove",
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"sourceMap": true,
+		"strict": true,
+		"baseUrl": "src",
+		"types": [
+			"svelte",
+			"svelte/store",
+			"svelte/motion",
+			"svelte/transition",
+			"svelte/animate",
+			"svelte/easing"
+		]
+	}
+}
