@@ -20,12 +20,12 @@
 </style>
 
 <script lang="ts">
-  import { orderBy } from 'lodash-es';
+  // import { orderBy } from 'lodash-es';
   let name: string = 'world';
-  console.log(orderBy([{a: 1000000, b: 2}, {a: 3, b: 2}, {a: -11, b: 2}, {a: 1111, b: 2}], 'a'));
+  // console.log(orderBy([{a: 1000000, b: 2}, {a: 3, b: 2}, {a: -11, b: 2}, {a: 1111, b: 2}], 'a'));
 </script>
 
-<main class="bg-green-100">
+<main>
   <h1>Hello {name}!</h1>
-  <p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+  <p class="text-red-400">Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 </main>
