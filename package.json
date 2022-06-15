@@ -5,8 +5,7 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build-all": "node build.js",
-        "build": "vite build",
+        "build": "node build.js",
         "preview": "vite preview",
         "check": "svelte-check --tsconfig ./tsconfig.json"
     },
