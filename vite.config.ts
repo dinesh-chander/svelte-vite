@@ -38,14 +38,23 @@ import glob from 'glob';
 const production = process.env.NODE_ENV === 'production';
 
 const rootDir = resolve(__dirname, 'src');
-const inputFiles = [
-  ...glob.sync(
-    resolve(
-      __dirname,
-      production ? 'src/templates/index.html' : 'src/templates/*.html'
-    )
+
+const getInputPathObject = (paths: string[]) => {
+  const pathObject = {};
+  paths.forEach(filePath => {
+    const fileName = path.parse(filePath).name;
+    pathObject[fileName] = filePath;
+  });
+
+  return pathObject;
+};
+
+let inputFiles = glob.sync(
+  resolve(
+    __dirname,
+    production ? 'src/templates/index.html' : 'src/templates/*.html'
   )
-];
+);
 
 const config = <UserConfig>defineConfig({
   root: rootDir,
@@ -81,7 +90,7 @@ const config = <UserConfig>defineConfig({
     // cssCodeSplit: false, this prevents injection of css code in html file
     rollupOptions: {
       makeAbsoluteExternalsRelative: false,
-      input: inputFiles,
+      input: production ? inputFiles : getInputPathObject(inputFiles),
       output: {
         manualChunks: undefined
       },
