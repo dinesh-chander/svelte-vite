@@ -24,7 +24,7 @@
   let subtextClassName = 'text-yellow-400';
   let headingClassName = 'text-red-400';
 
-  if (window.location.pathname.match('widget.html')) {
+  if (window.location.pathname.match('widget')) {
     headingClassName = 'text-pink-400';
     subtextClassName = 'text-blue-400';
   }
