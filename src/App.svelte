@@ -6,10 +6,9 @@
     margin: 0 auto;
 
     h1 {
-      color: #ff3e00;
       text-transform: uppercase;
       font-family: lato;
-      font-size: 4em;
+      font-size: 2em;
       font-weight: 100;
     }
 
@@ -22,10 +21,17 @@
 <script lang="ts">
   // import { orderBy } from 'lodash-es';
   let name: string = 'world';
+  let subtextClassName = 'text-yellow-400';
+  let headingClassName = 'text-red-400';
+
+  if (window.location.pathname.match('widget.html')) {
+    headingClassName = 'text-pink-400';
+    subtextClassName = 'text-blue-400';
+  }
   // console.log(orderBy([{a: 1000000, b: 2}, {a: 3, b: 2}, {a: -11, b: 2}, {a: 1111, b: 2}], 'a'));
 </script>
 
 <main>
-  <h1>Hello {name}!</h1>
-  <p class="text-red-400">Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+  <h1 class={headingClassName}>Hello {name}!</h1>
+  <p class={subtextClassName}>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 </main>

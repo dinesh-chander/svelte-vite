@@ -1,12 +1,12 @@
 {
 	"extends": "@tsconfig/svelte/tsconfig.json",
-	"include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
+	"include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "src/main.ts"],
 	"references": [{ "path": "./tsconfig.node.json" }],
 	"exclude": ["node_modules/*", "public/*"],
 	"compilerOptions": {
-		"moduleResolution": "Node",
-		"target": "es2017",
-		"module": "es2020",
+		"moduleResolution": "NodeNext",
+		"target": "ES6",
+		"module": "ESNext",
 		"importsNotUsedAsValues": "remove",
 		"allowJs": true,
 		"checkJs": true,

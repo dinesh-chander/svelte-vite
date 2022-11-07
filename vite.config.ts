@@ -19,7 +19,7 @@ const sourceMapsInProduction = false;
 
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import legacy from '@vitejs/plugin-legacy';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import { visualizer as bundleVisualizerPlugin } from 'rollup-plugin-visualizer';
 import autoPreprocess from 'svelte-preprocess';
 import { defineConfig, UserConfig } from 'vite';
@@ -97,7 +97,7 @@ const config = <UserConfig>defineConfig({
       plugins: [
         bundleVisualizerPlugin({
           filename: `stats/${path.parse(inputFiles[0]).base}-stats.html`,
-        })
+        }) as Plugin
       ]
     },
     emptyOutDir: false,

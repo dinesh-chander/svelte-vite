@@ -6,7 +6,7 @@ import tailwindPlugin from './tailwind.config';
 const production = process.env.NODE_ENV === "production";
 
 const plugins = [
-  postcssImport,
+  postcssImport(),
   tailwindPlugin,
   autoprefixer,
 ];

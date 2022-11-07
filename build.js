@@ -3,9 +3,9 @@ import { fileURLToPath } from 'node:url';
 import { readFileSync, writeFileSync, rm } from 'node:fs';
 import glob from 'glob';
 import path from 'path';
-import tmp, { file } from 'tmp';
+import tmp from 'tmp';
 import spawn from 'cross-spawn';
-import del from 'del';
+import * as del from 'del';
 
 tmp.setGracefulCleanup();
 
@@ -17,12 +17,12 @@ const viteConfig = readFileSync('./vite.config.ts', { encoding: 'utf-8' });
 
 
 function cleanBuildDirectory() {
-    del.sync("dist/**");
+    del.deleteSync("dist/**");
 }
 
 function createTempConfig(file) {
     const newConfigFileName = `vite-config-${file.name}.ts`;
-    del.sync(newConfigFileName);
+    del.deleteSync(newConfigFileName);
 
     const configCopy = viteConfig.toString().replace('index.html', file.base);
     
