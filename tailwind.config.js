@@ -1,6 +1,6 @@
-import tailwind from 'tailwindcss';
+import tailwindcss from 'tailwindcss';
 
-export default tailwind({
+const tailwindPlugin = tailwindcss({
   mode: 'jit',
   content: [
     "./src/**/*.html",
@@ -11,3 +11,5 @@ export default tailwind({
   },
   plugins: []
 });
+
+export default tailwindPlugin;

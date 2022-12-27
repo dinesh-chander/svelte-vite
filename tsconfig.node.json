@@ -6,6 +6,6 @@
       "resolveJsonModule": true,
       "allowSyntheticDefaultImports": true
     },
-    "include": ["vite.config.ts", "tailwind.config.ts", "postcss.config.ts", "package.json"]
+    "include": ["vite.config.js", "tailwind.config.js", "postcss.config.js", "package.json"]
   }
   

@@ -18,11 +18,11 @@ const sourceMapsInProduction = false;
 /*********************************************************************************************************************/
 
 import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { fileURLToPath } from 'node:url';
 import legacy from '@vitejs/plugin-legacy';
-import { resolve } from 'node:path';
 import { visualizer as bundleVisualizerPlugin } from 'rollup-plugin-visualizer';
 import autoPreprocess from 'svelte-preprocess';
-import { defineConfig, UserConfig } from 'vite';
+import { defineConfig } from 'vite';
 import AsyncCatch from 'vite-plugin-async-catch';
 import viteCompression from 'vite-plugin-compression';
 import { createHtmlPlugin } from 'vite-plugin-html';
@@ -37,9 +37,18 @@ import glob from 'glob';
 
 const production = process.env.NODE_ENV === 'production';
 
-const rootDir = resolve(__dirname, 'src');
+const getAbsPath = (pattern) => {
+  const fullPath = fileURLToPath(new URL(pattern, import.meta.url));
+  return fullPath;
+};
 
-const getInputPathObject = (paths: string[]) => {
+const rootDir = getAbsPath('src')
+
+const inputFiles = glob.sync(
+  getAbsPath(production ? 'src/index.html' : 'src/**/*.html')
+);
+
+const getInputPathObject = (paths) => {
   const pathObject = {};
   paths.forEach(filePath => {
     const fileName = path.parse(filePath).name;
@@ -49,14 +58,7 @@ const getInputPathObject = (paths: string[]) => {
   return pathObject;
 };
 
-let inputFiles = glob.sync(
-  resolve(
-    __dirname,
-    production ? 'src/templates/index.html' : 'src/templates/*.html'
-  )
-);
-
-const config = <UserConfig>defineConfig({
+const config = defineConfig({
   root: rootDir,
   resolve: {
     alias: {
@@ -66,7 +68,7 @@ const config = <UserConfig>defineConfig({
   plugins: [
     vitePluginHtmlEnv(),
     tsconfigPaths({
-      projects: [resolve(__dirname, '.')]
+      projects: [getAbsPath('.')]
     }),
     AsyncCatch.default({
       catchCode: `console.error(e)`
@@ -80,7 +82,9 @@ const config = <UserConfig>defineConfig({
       },
       hot: !production
     }),
-    viteSingleFile(),
+    viteSingleFile({
+      removeViteModuleLoader: true
+    }),
     createHtmlPlugin(),
     viteCompression()
   ],
@@ -90,18 +94,19 @@ const config = <UserConfig>defineConfig({
     // cssCodeSplit: false, this prevents injection of css code in html file
     rollupOptions: {
       makeAbsoluteExternalsRelative: false,
-      input: production ? inputFiles : getInputPathObject(inputFiles),
+      input: getInputPathObject(inputFiles),
       output: {
-        manualChunks: undefined
+        manualChunks: undefined,
+        compact: true,
       },
       plugins: [
         bundleVisualizerPlugin({
           filename: `stats/${path.parse(inputFiles[0]).base}-stats.html`,
-        }) as Plugin
+        })
       ]
     },
     emptyOutDir: false,
-    outDir: resolve(__dirname, 'dist')
+    outDir: getAbsPath('dist')
   },
   css: {
     postcss
