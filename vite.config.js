@@ -32,8 +32,8 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import pkg from './package.json';
 import path from 'path';
 import postcss from './postcss.config';
-import vitePluginHtmlEnv from 'vite-plugin-html-env'
-import glob from 'glob';
+import vitePluginHtmlEnv from 'vite-plugin-html-env';
+import { sync } from 'glob';
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -42,15 +42,13 @@ const getAbsPath = (pattern) => {
   return fullPath;
 };
 
-const rootDir = getAbsPath('src')
+const rootDir = getAbsPath('src');
 
-const inputFiles = glob.sync(
-  getAbsPath(production ? 'src/index.html' : 'src/**/*.html')
-);
+const inputFiles = sync(getAbsPath(production ? 'src/index.html' : 'src/**/*.html'));
 
 const getInputPathObject = (paths) => {
   const pathObject = {};
-  paths.forEach(filePath => {
+  paths.forEach((filePath) => {
     const fileName = path.parse(filePath).name;
     pathObject[fileName] = filePath;
   });
@@ -97,11 +95,11 @@ const config = defineConfig({
       input: getInputPathObject(inputFiles),
       output: {
         manualChunks: undefined,
-        compact: true,
+        compact: true
       },
       plugins: [
         bundleVisualizerPlugin({
-          filename: `stats/${path.parse(inputFiles[0]).base}-stats.html`,
+          filename: `stats/${path.parse(inputFiles[0]).base}-stats.html`
         })
       ]
     },

@@ -1,7 +1,7 @@
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFileSync, writeFileSync } from 'node:fs';
-import glob from 'glob';
+import {sync} from 'glob';
 import path from 'path';
 import tmp from 'tmp';
 import spawn from 'cross-spawn';
@@ -12,7 +12,7 @@ tmp.setGracefulCleanup();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const files = glob.sync(resolve(__dirname, 'src/**/*.html'));
+const files = sync(resolve(__dirname, 'src/**/*.html'));
 
 const viteConfig = readFileSync('./vite.config.js', { encoding: 'utf-8' });
 
